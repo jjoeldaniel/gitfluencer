@@ -21,7 +21,7 @@ of manually identifying and unfollowing each account individually.
 
 2. Install the required dependencies with 
 
-    ```python
+    ```terminal
     pip install -r requirements.txt
     ```
 
@@ -29,6 +29,6 @@ of manually identifying and unfollowing each account individually.
 
 4. Run the script with 
 
-    ```python
+    ```terminal
     python3 src/main.py
     ```
