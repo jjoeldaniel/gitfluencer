@@ -1,5 +1,9 @@
 from github import Github
 from dotenv import load_dotenv
+from rich import print
+from rich.console import Console
+from rich.table import Table
+from rich.prompt import Prompt, Confirm
 import os
 import requests
 
@@ -27,6 +31,11 @@ def unfollow_user(target_username: str):
 
 def print_list():
 
+    # Table to be printed
+    table = Table(title='List of non-followers')
+    table.add_column('GitHub Username', style='green')
+    table.add_column('Name (if available)', justify='right', style='cyan')
+
     # Build set of followers for the primary user
     followers = set()
 
@@ -37,7 +46,6 @@ def print_list():
         x += 1
 
     y = 0
-    print('List of non-followers\n=====================')
     while len(git.get_user().get_followers().get_page(y)) > 0:
         for user in git.get_user().get_following().get_page(y):
 
@@ -48,26 +56,24 @@ def print_list():
             # Print GitHub username and name (if set)
             if user not in followers:
                 to_be_unfollowed.append(user.login)
-                print(f'Username: {user.login}')
                 if user.name is not None:
-                    print(f'Name: {user.name}')
-                print()
+                    table.add_row(user.login, user.name)
+                else:
+                    table.add_row(user.login)
+
         y += 1
+
+    console = Console()
+    console.print(table)
 
 
 print_list()
 
-prompt = input('Unfollow all? [y] [n]')
-while (
-            prompt != "y" or
-            prompt != "yes" or
-            prompt != "n" or
-            prompt != "no"
-        ):
-    if prompt == "y" or prompt == "yes":
+prompt = Prompt.ask('Unfollow all? [y] [n]', choices=['y', 'n'])
+if prompt == "y" or prompt == "yes":
+    confirm = Confirm.ask("Are you sure?")
+    if confirm:
         for user in to_be_unfollowed:
             unfollow_user(user)
-    elif prompt == "n" or prompt == "no":
-        break
-    else:
-        prompt = input("Try again:").lower()
+elif prompt == "n" or prompt == "no":
+    print('Goodbye!')
