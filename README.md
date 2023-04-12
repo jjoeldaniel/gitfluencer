@@ -14,7 +14,6 @@ of manually identifying and unfollowing each account individually.
 
 * Python 3.x
 * GitHub account with valid credentials
-* `requests` library for Python (listed in [requirements](/requirements.txt))
 
 ## How to Use
 
