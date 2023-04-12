@@ -1,7 +1,7 @@
 # unfollow
 
 This is a simple Python script designed to identify non-mutual followers
-and allows for a quick, mass-unfollow solution, sacving you the hassle
+and allows for a quick, mass-unfollow solution, saving you the hassle
 of manually identifying and unfollowing each account individually.
 
 ## Features
