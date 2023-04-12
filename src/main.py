@@ -47,7 +47,12 @@ for user in git.get_user().get_following().get_page(0):
         prompt = input("Unfollow user?")
         prompt = str(prompt).lower()
 
-        while prompt != "y" or prompt != "yes" or prompt != "n" or prompt != "no":
+        while (
+            prompt != "y" or
+            prompt != "yes" or
+            prompt != "n" or
+            prompt != "no"
+        ):
             if prompt == "y" or prompt == "yes":
                 print(unfollow_user(user.login))
                 break
