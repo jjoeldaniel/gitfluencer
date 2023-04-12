@@ -29,23 +29,30 @@ def print_list():
 
     # Build set of followers for the primary user
     followers = set()
-    for data in git.get_user().get_followers().get_page(0):
-        followers.add(data)
 
+    x = 0
+    while len(git.get_user().get_followers().get_page(x)) > 0:
+        for data in git.get_user().get_followers().get_page(x):
+            followers.add(data)
+        x += 1
+
+    y = 0
     print('List of non-followers\n=====================')
-    for user in git.get_user().get_following().get_page(0):
+    while len(git.get_user().get_followers().get_page(y)) > 0:
+        for user in git.get_user().get_following().get_page(y):
 
-        # If a user is in this following list but is not
-        # following the primary user, then we can conclude
-        # that this is not a mutual follow.
+            # If a user is in this following list but is not
+            # following the primary user, then we can conclude
+            # that this is not a mutual follow.
 
-        # Print GitHub username and name (if set)
-        if user not in followers:
-            to_be_unfollowed.append(user.login)
-            print(f'Username: {user.login}')
-            if user.name is not None:
-                print(f'Name: {user.name}')
-            print()
+            # Print GitHub username and name (if set)
+            if user not in followers:
+                to_be_unfollowed.append(user.login)
+                print(f'Username: {user.login}')
+                if user.name is not None:
+                    print(f'Name: {user.name}')
+                print()
+        y += 1
 
 
 print_list()
