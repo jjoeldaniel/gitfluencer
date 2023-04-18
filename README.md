@@ -4,6 +4,8 @@ This is a simple Python script designed to identify non-mutual followers
 and allows for a quick, mass-unfollow solution, saving you the hassle
 of manually identifying and unfollowing each account individually.
 
+![image](https://user-images.githubusercontent.com/100006388/232710218-0fee7061-3291-4fbc-b453-e43776c2bab4.png)
+
 ## Features
 
 * Fetches the list of GitHub accounts that you are following.
