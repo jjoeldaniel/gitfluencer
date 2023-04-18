@@ -7,9 +7,18 @@ from rich.prompt import Prompt, Confirm
 import os
 import requests
 
-# Create API object from token
+# Load environment variables
 load_dotenv()
+
+# Get API token from environment variable or prompt for input
 api_token = os.getenv("API_TOKEN")
+if not api_token:
+    api_token = input("Please enter your GitHub API token: ")
+
+# Store API token as environment variable
+os.environ["API_TOKEN"] = api_token
+
+# Create API object from token
 git = Github(api_token)
 to_be_unfollowed = list()
 
