@@ -6,24 +6,8 @@ from rich.prompt import Prompt, Confirm
 import os
 import requests
 
-# Get API token from environment variable or prompt for input
-api_token = os.getenv("API_TOKEN")
-if not api_token:
-    api_token = Prompt.ask(
-            "Please enter your GitHub API token: ",
-            password=True,
-            show_default=False,
-            show_choices=True)
 
-# Store API token as environment variable
-os.environ["API_TOKEN"] = api_token
-
-# Create API object from token
-git = Github(api_token)
-to_be_unfollowed = list()
-
-
-def unfollow_user(target_username: str):
+def unfollow_user(target_username: str, api_token: str):
     headers = {
         'Accept': 'application/vnd.github+json',
         'Authorization': f'Bearer {api_token}',
@@ -38,7 +22,7 @@ def unfollow_user(target_username: str):
     return response.status_code
 
 
-def print_list():
+def print_list(git: Github, to_be_unfollowed: list):
 
     # Table to be printed
     table = Table(title='List of non-followers')
@@ -76,13 +60,36 @@ def print_list():
     console.print(table)
 
 
-print_list()
+def main():
 
-prompt = Prompt.ask('Unfollow all? [y] [n]', choices=['y', 'n'])
-if prompt == "y" or prompt == "yes":
-    confirm = Confirm.ask("Are you sure?")
-    if confirm:
-        for user in to_be_unfollowed:
-            unfollow_user(user)
-elif prompt == "n" or prompt == "no":
-    print('Goodbye!')
+    # Get API token from environment variable or prompt for input
+    api_token = os.getenv("GH_API_TOKEN")
+    if not api_token:
+        api_token = Prompt.ask(
+                "Please enter your GitHub API token: ",
+                password=True,
+                show_default=False,
+                show_choices=True)
+
+    # Store API token as environment variable
+    os.environ["GH_API_TOKEN"] = api_token
+
+    # Create API object from token
+    git = Github(api_token)
+    to_be_unfollowed = list()
+
+    print_list(git, to_be_unfollowed)
+
+    # Confirmation
+    prompt = Prompt.ask('Unfollow all? [y] [n]', choices=['y', 'n'])
+    if prompt == "y" or prompt == "yes":
+        confirm = Confirm.ask("Are you sure?")
+        if confirm:
+            for user in to_be_unfollowed:
+                unfollow_user(target_username=user, api_token=api_token)
+    elif prompt == "n" or prompt == "no":
+        print('Goodbye!')
+
+
+if __name__ == "__main__":
+    main()
