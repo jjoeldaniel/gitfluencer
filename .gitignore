@@ -1,2 +1,8 @@
 /venv/
-.env
+*.env
+/__pycache__/
+
+# Ignore build and distribution directories
+/build/
+/dist/
+*.egg-info/
