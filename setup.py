@@ -2,15 +2,15 @@ from setuptools import setup, find_packages
 
 setup(
     name='gitfluencer',
-    version='0.1.1',
+    version='0.1.2',
     description='Utility tool for interacting with the GitHub platform',
     author='jjoeldaniel',
     author_email='joeldanielrico@gmail.com',
     url='https://github.com/jjoeldaniel/gitfluencer',
     packages=find_packages(),
     install_requires=[
-        'github3.py',
-        'python-dotenv',
+        'PyGithub',
+        'Requests',
         'rich',
     ],
     entry_points={

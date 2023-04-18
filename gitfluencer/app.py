@@ -1,14 +1,10 @@
 from github import Github
-from dotenv import load_dotenv
 from rich import print
 from rich.console import Console
 from rich.table import Table
 from rich.prompt import Prompt, Confirm
 import os
 import requests
-
-# Load environment variables
-load_dotenv()
 
 # Get API token from environment variable or prompt for input
 api_token = os.getenv("API_TOKEN")
