@@ -9,7 +9,11 @@ import requests
 # Get API token from environment variable or prompt for input
 api_token = os.getenv("API_TOKEN")
 if not api_token:
-    api_token = input("Please enter your GitHub API token: ")
+    api_token = Prompt.ask(
+            "Please enter your GitHub API token: ",
+            password=True,
+            show_default=False,
+            show_choices=True)
 
 # Store API token as environment variable
 os.environ["API_TOKEN"] = api_token
