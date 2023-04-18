@@ -1,4 +1,4 @@
-# unfollow
+# gitfluencer
 
 This is a simple Python script designed to identify non-mutual followers
 and allows for a quick, mass-unfollow solution, saving you the hassle
